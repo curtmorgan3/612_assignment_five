@@ -1,6 +1,5 @@
 const Sequelize = require('sequelize');
-const { createHash } = require('./passwordEncrypt.js');
-const DATABASE_NAME = "";
+const DATABASE_NAME = "marvel_db";
 
 const sequelize = new Sequelize({
 	database: DATABASE_NAME,
@@ -11,24 +10,13 @@ const sequelize = new Sequelize({
 	},
 });
 
-const User = sequelize.define('user', {
-	username: Sequelize.STRING,
-	password: Sequelize.STRING
+const Character = sequelize.define('character', {
+	name: Sequelize.STRING,
+	type: Sequelize.STRING,
+	abilities: Sequelize.STRING,
 });
-
-User.beforeCreate(async (user, options) => {
-	const passwordDigest = await createHash(user.password);
-	user.password = passwordDigest;
-});
-User.beforeUpdate(async (user, options) => {
-	if (options.fields.includes('password')) {
-		const passwordDigest = await createHash(user.password);
-		user.password = passwordDigest;
-	}
-});
-
 
 module.exports = {
 	sequelize,
-	User
+	Character
 }

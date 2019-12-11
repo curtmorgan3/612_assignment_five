@@ -1,55 +1,66 @@
-require('dotenv').config();
 const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const nodemailer = require('nodemailer');
+const { Character } = require('./models.js');
 
-const PORT = process.env.PORT;
+const PORT = 8080;
+const HOST = '0.0.0.0';
 
-// nodemailer credentials for account to receive emails
-// const GMAIL_USER = process.env.GMAIL_USER;
-// const GMAIL_PASS = process.env.GMAIL_PASS;
 
 const app = express();
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(cors());
 
-// nodemailer
 
-let transporter = nodemailer.createTransport({
-	host: 'smtp.gmail.com',
-  port: 465,
-  secure: true,
-  auth: {
-    user: GMAIL_USER,
-    pass: GMAIL_PASS
-  }
-});
-
-app.post('/contact-us', async (req, res) => {
+app.get('/characters', async (req, res) => {
 	try {
-		mailOpts = {
-		  from: req.body.name + ' &lt;' + req.body.email + '&gt;',
-		  to: GMAIL_USER,
-		  subject: 'EMAIL SUBJECT LINE HERE',
-		  text: `${req.body.name} (${req.body.email}) says: ${req.body.message}`
-		};
-		transporter.sendMail(mailOpts, (error, response) => {
-			if(error){
-				res.send('Error');
-			}else {
-				res.send('Success');
-			}
-		});
+		const characters = await Character.findAll();
+		res.json(characters)
 	} catch (e) {
-		res.json({Error: `${e.msg}`})
+		res.json({msg: e})
 	}
-})
-
-app.get('/', (req, res) => {
-	res.json({msg: "Index Page"});
 });
 
-app.listen(PORT, ()=> console.log(`Server running on ${PORT}`));
+app.get('/characters/:id', async (req, res) => {
+	try {
+		const character = await Character.findByPk(req.params.id);
+		res.json(character);
+	} catch (e) {
+		res.json({msg: e})
+	}
+});
+
+app.get('/characters/type/:type', async (req, res) => {
+	try {
+		const characters = await Character.findAll({where: {type: req.params.type}});
+		res.json(characters);
+	} catch (e) {
+		res.json({msg: e})
+	}
+});
+
+app.get('/characters/heroes/:index', async (req, res) => {
+	try {
+		const characters = await Character.findAll({where: {type: 'hero'}});
+		const character = characters[req.params.index - 1];
+		res.json(character);
+	} catch (e) {
+		res.json({msg: e})
+	}
+});
+
+app.get('/characters/villains/:index', async (req, res) => {
+	try {
+		const characters = await Character.findAll({where: {type: 'villain'}});
+		const character = characters[req.params.index - 1];
+		res.json(character);
+	} catch (e) {
+		res.json({msg: e})
+	}
+});
+app.listen(PORT, HOST);
+
+console.log(`Server running on ${PORT}:${HOST}`);
+
