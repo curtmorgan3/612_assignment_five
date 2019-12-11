@@ -1,17 +1,7 @@
-FROM node:12
-
-# Create app directory
-WORKDIR ./app
-
-# Copying package.json and package-lock.json using a wildcard
-COPY package.json ./
-COPY package-lock.json ./
-# Install app dependencies
-RUN npm install
-
-# Bundle app source
-COPY . .
-
+FROM node:7
+RUN mkdir /assignment_five
+ADD . /assignment_five
+WORKDIR /assignment_five
+RUN npm i
 EXPOSE 8080
-
 CMD ["npm", "start"]
