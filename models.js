@@ -9,8 +9,7 @@ const DATABASE_NAME = "marvel_db";
 // 		underscored: true
 // 	},
 // });
-console.log(process.env.DATABASE_URL);
-const sequelize = new Sequelize('postgres://postgres:password@localhost:5432/marvel_db', {
+const sequelize = new Sequelize('postgres://postgres:JJay17!*jr@127.0.0.1:5432/marvel_db', {
 	dialect: 'postgres',
 	protocol: 'postgres',
 	operatorsAliases: false,

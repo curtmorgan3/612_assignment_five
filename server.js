@@ -2,16 +2,20 @@ const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const pg = require('pg');
 const { Character } = require('./models.js');
 
+pg.connect('postgres://curtmorgan:JJay17!*jr@localhost:5432/marvel_db');
 const PORT = 3000;
-
 
 const app = express();
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(cors());
 
+app.get('/', async (req, res) => {
+	res.json({msg: 'Success'});
+})
 
 app.get('/characters', async (req, res) => {
 	try {
@@ -59,6 +63,7 @@ app.get('/characters/villains/:index', async (req, res) => {
 		res.json({msg: e})
 	}
 });
+
 app.listen(PORT, () => {
 	console.log(`Server running on ${PORT}`);
 });
