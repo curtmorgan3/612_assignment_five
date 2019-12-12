@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const DATABASE_NAME = "marvel_db";
+const DATABASE_NAME = "marvelDB";
 
 // const sequelize = new Sequelize({
 // 	database: DATABASE_NAME,

@@ -59,3 +59,7 @@ async function seed(){
 };
 
 seed();
+
+module.exports = {
+	seed
+}
