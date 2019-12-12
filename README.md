@@ -1,6 +1,7 @@
 # RESTful API with Node and Docker
 
 http://localhost/characters/
+`docker-compose up`
 
 Are you a Marvel Comics fan? Connect to this (admittedly small) RESTful API to get the details of your favorite heroes and villains.
 
