@@ -59,7 +59,8 @@ app.get('/characters/villains/:index', async (req, res) => {
 		res.json({msg: e})
 	}
 });
-app.listen(PORT, HOST);
+app.listen(PORT, () => {
+	console.log(`Server running on ${PORT}`);
+});
 
-console.log(`Server running on ${PORT}:${HOST}`);
 
