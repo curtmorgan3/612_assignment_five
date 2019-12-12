@@ -1,7 +1,7 @@
 FROM node:7
-RUN mkdir /assignment_five
-ADD . /assignment_five
-WORKDIR /assignment_five
+RUN mkdir /612_assignment_five
+ADD . /612_assignment_five
+WORKDIR /612_assignment_five
 RUN npm i
 EXPOSE 8080
 CMD ["npm", "start"]
