@@ -2,10 +2,8 @@ const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const pg = require('pg');
 const { Character } = require('./models.js');
 
-pg.connect('postgres://curtmorgan:JJay17!*jr@localhost:5432/marvel_db');
 const PORT = 3000;
 
 const app = express();
@@ -22,6 +20,7 @@ app.get('/characters', async (req, res) => {
 		const characters = await Character.findAll();
 		res.json(characters)
 	} catch (e) {
+		console.error(e);
 		res.json({msg: e})
 	}
 });
