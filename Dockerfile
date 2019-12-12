@@ -4,5 +4,4 @@ ADD . /612_assignment_five
 WORKDIR /612_assignment_five
 RUN npm i
 EXPOSE 80
-CMD ["npm", "run", "resetDB"]
 CMD ["npm", "start"]
