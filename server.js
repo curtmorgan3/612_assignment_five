@@ -4,8 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const { Character } = require('./models.js');
 
-const PORT = 8080;
-const HOST = '0.0.0.0';
+const PORT = 3000;
 
 
 const app = express();
